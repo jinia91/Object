@@ -17,6 +17,7 @@ public class TicketTests {
         theater.enter(audience);
 
         // Then
+        assertThat(ticketOffice.getAmount()).isEqualTo(1L);
 //        assertThat().isEqualTo(true);
     }
 
@@ -34,5 +35,40 @@ public class TicketTests {
 
         // Then
 //        assertThat(audience.getBag().hasTicket()).isEqualTo(true);
+    }
+
+    @Test
+    public void test_초대장이_있는사람은_무료로_티켓을_얻는다() {
+        // Given
+        TicketOffice ticketOffice = new TicketOffice(1L, new Ticket(1L));
+        TicketSeller ticketSeller = new TicketSeller(ticketOffice);
+        Theater theater = new Theater(ticketSeller);
+        Invitation invitation = new Invitation();
+        Bag bag = new Bag(1L, invitation);
+        Audience audience = new Audience(bag);
+
+        // When
+        ticketSeller.sellTo(audience);
+
+        // Then
+        assertThat(ticketOffice.getAmount()).isEqualTo(1L);
+        assertThat(ticketOffice.getTickets().size()).isEqualTo(0);
+    }
+
+    @Test
+    public void test_초대장이_없는사람은_티켓_가격만큼_돈을_지불한다() {
+        // Given
+        TicketOffice ticketOffice = new TicketOffice(1L, new Ticket(1L));
+        TicketSeller ticketSeller = new TicketSeller(ticketOffice);
+        Theater theater = new Theater(ticketSeller);
+        Bag bag = new Bag(1L);
+        Audience audience = new Audience(bag);
+
+        // When
+        ticketSeller.sellTo(audience);
+
+        // Then
+        assertThat(ticketOffice.getAmount()).isEqualTo(2L);
+        assertThat(ticketOffice.getTickets().size()).isEqualTo(0);
     }
 }

@@ -6,6 +6,14 @@ public class TicketOffice {
     private Long amount;
     private List<Ticket> tickets = new ArrayList<>();
 
+    public Long getAmount() {
+        return amount;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
     public TicketOffice(Long amount, Ticket ... tickets) {
         this.amount = amount;
         this.tickets.addAll(Arrays.asList(tickets));
