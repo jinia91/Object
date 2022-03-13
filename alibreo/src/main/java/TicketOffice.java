@@ -22,4 +22,9 @@ public class TicketOffice {
     public void plusAmount(Long amount) {
         this.amount += amount;
     }
+
+    // 이렇게 작성하면 TicketOffice와 Audience간에 결합도가 생긴다.
+    public void sellTicketTo(Audience audience) {
+        plusAmount(audience.buy(getTicket()));
+    }
 }

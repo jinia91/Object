@@ -17,7 +17,7 @@ public class TicketTests {
         theater.enter(audience);
 
         // Then
-        assertThat(audience.getBag().hasTicket()).isEqualTo(true);
+//        assertThat().isEqualTo(true);
     }
 
     @Test
@@ -33,6 +33,6 @@ public class TicketTests {
         theater.enter(audience);
 
         // Then
-        assertThat(audience.getBag().hasTicket()).isEqualTo(true);
+//        assertThat(audience.getBag().hasTicket()).isEqualTo(true);
     }
 }
