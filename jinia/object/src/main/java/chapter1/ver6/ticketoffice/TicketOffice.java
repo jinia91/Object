@@ -1,6 +1,10 @@
-package chapter1.ver3;
+package chapter1.ver6.ticketoffice;
 
-import java.util.*;
+import chapter1.ver6.ticket.Ticket;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TicketOffice {
     private Long amount;
@@ -11,16 +15,17 @@ public class TicketOffice {
         this.tickets.addAll(Arrays.asList(tickets));
     }
 
-    // getter 명칭에 비해 동작방식이 상식에 어긋남
     public Ticket issueTicket() {
-        return tickets.remove(0);
+        Ticket issuedTicket = tickets.remove(0);
+        minusAmount(issuedTicket.getFee());
+        return issuedTicket;
     }
 
-    public void minusAmount(Long amount) {
+    private void minusAmount(Long amount) {
         this.amount -= amount;
     }
 
-    public void plusAmount(Long amount) {
+    private void plusAmount(Long amount) {
         this.amount += amount;
     }
 }

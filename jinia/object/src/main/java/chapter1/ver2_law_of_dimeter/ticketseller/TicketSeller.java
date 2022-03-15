@@ -9,7 +9,7 @@ public class TicketSeller {
         this.ticketOffice = ticketOffice;
     }
 
-    public TicketOffice getTicketOffice() {
+    public TicketOffice a() {
         return ticketOffice;
     }
 }
