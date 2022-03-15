@@ -1,4 +1,4 @@
-package chapter1.ver3;
+package chapter1.ver2_law_of_dimeter.ver3;
 
 import java.time.LocalDateTime;
 
