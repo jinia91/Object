@@ -1,8 +1,9 @@
 import { TicketOffice } from "./ticket-office.entity";
+import { Audience } from "./audience.entity";
 
 export class TicketSeller {
   constructor(private ticketOffice: TicketOffice) {}
-  public getTicketOffice() {
-    return this.ticketOffice;
+  public sellTo(audience: Audience) {
+    this.ticketOffice.sellTicketTo(audience);
   }
 }
