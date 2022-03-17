@@ -8,7 +8,20 @@ export class Bag {
     private ticket: Ticket
   ) {}
 
-  public hasInvtation() {
+
+  private setTicket(ticket: Ticket) {
+    this.ticket = ticket;
+  }
+
+  private minusAmount(amount: number) {
+    this.amount -= amount;
+  }
+
+  private plusAmount(amount: number) {
+    this.amount += amount;
+  }
+
+  public hasInvitation() {
     return this.invitation !== null;
   }
 
@@ -16,15 +29,12 @@ export class Bag {
     return this.ticket !== null;
   }
 
-  public setTicket(ticket: Ticket) {
-    this.ticket = ticket;
-  }
-
-  public minusAmount(amount: number) {
-    this.amount -= amount;
-  }
-
-  public plusAmount(amount: number) {
-    this.amount += amount;
+  public hold(ticket: Ticket) {
+    if (this.hasInvitation()) {
+      this.setTicket(ticket);
+    }
+    this.setTicket(ticket);
+    this.minusAmount(ticket.getFee());
+    return ticket.getFee();
   }
 }

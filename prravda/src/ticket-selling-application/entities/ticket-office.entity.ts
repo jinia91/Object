@@ -1,4 +1,5 @@
 import { Ticket } from "./ticket.entity";
+import { Audience } from "./audience.entity";
 
 export interface CreateTicketOfficeDto {
   amount: number;
@@ -8,15 +9,19 @@ export interface CreateTicketOfficeDto {
 export class TicketOffice {
   constructor(private amount: number, private ticketList: Ticket[]) {}
 
-  public handOverTicket() {
+  public sellTicketTo(audience: Audience) {
+    this.plusAmount(audience.buy(this.getTicket()));
+  }
+
+  private getTicket() {
     return this.ticketList.shift();
   }
 
-  public plusAmount(amount: number) {
+  private plusAmount(amount: number) {
     this.amount += amount;
   }
 
-  public minusAmount(amount: number) {
+  private minusAmount(amount: number) {
     this.amount -= amount;
   }
 }
