@@ -13,6 +13,18 @@ public class Tests {
         assertThat(Money.wons(800)).isNotEqualTo(Money.wons(700));
     }
 
+    @Test public void test_n명이_관람을하러갔을경우_n배만큼의비용이발생한다() {
+        Movie avatar = new Movie("아바타",
+                Duration.ofMinutes(120),
+                Money.wons(10000),
+                null);
+        Screening screening = new Screening(avatar, 10, LocalDateTime.now());
+
+        Reservation reservation = screening.reserve(new Customer(), 2);
+
+        assertThat(reservation.getFee()).isEqualTo(Money.wons(20000));
+    }
+
     @Test
     public void test_Avatar는_매일10번째_상영일경우_일정금액할인받는다() {
         Movie avatar = new Movie("아바타",
@@ -25,9 +37,9 @@ public class Tests {
                         new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))));
         Screening screening = new Screening(avatar, 10, LocalDateTime.now());
 
-        Money money = screening.getMovieFee();
+        Reservation reserve = screening.reserve(new Customer(), 1);
 
-        assertThat(money).isEqualTo(Money.wons(9200));
+        assertThat(reserve.getFee()).isEqualTo(Money.wons(9200));
     }
 
     @Test
@@ -56,5 +68,10 @@ public class Tests {
                         new PeriodCondition(DayOfWeek.TUESDAY, LocalTime.of(14, 0), LocalTime.of(16, 59)),
                         new SequenceCondition(2),
                         new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(13, 59))));
+        Screening screening = new Screening(titanic, 2, LocalDateTime.now());
+
+        Money money = screening.getMovieFee();
+
+        assertThat(money).isEqualTo(Money.wons(9900));
     }
 }

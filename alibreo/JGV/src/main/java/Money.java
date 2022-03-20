@@ -2,6 +2,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 @ToString
 @EqualsAndHashCode
@@ -31,7 +33,7 @@ public class Money {
     }
 
     public Money times(double percent) {
-        return new Money(this.amount.multiply(BigDecimal.valueOf(percent)));
+        return new Money(this.amount.multiply(BigDecimal.valueOf(percent)).setScale(0, RoundingMode.FLOOR));
     }
 
     public boolean isLessThan(Money other) {

@@ -19,15 +19,15 @@ public class Screening {
         return new Reservation(customer, this, calculateFee(audienceCount), audienceCount);
     }
 
-    private Money calculateFee(int audienceCount) {
-        return Money.ZERO;
-    }
-
     public boolean isSequence(int sequence) {
         return this.sequence == sequence;
     }
 
     public Money getMovieFee() {
-        return movie.calculateMovieFee(this);
+        return movie.getFee();
+    }
+
+    private Money calculateFee(int audienceCount) {
+        return movie.calculateMovieFee(this).times(audienceCount);
     }
 }

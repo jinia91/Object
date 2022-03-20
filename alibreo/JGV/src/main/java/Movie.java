@@ -14,7 +14,6 @@ public class Movie {
     }
 
     public Money calculateMovieFee(Screening screening) {
-        // 이건 생성자가 맡아야할 책임같지만..? -> 아니네
         if (discountPolicy == null) {
             return fee;
         }
