@@ -28,6 +28,6 @@ public class Screening {
     }
 
     public Money getMovieFee() {
-        return movie.getFee();
+        return movie.calculateMovieFee(this);
     }
 }

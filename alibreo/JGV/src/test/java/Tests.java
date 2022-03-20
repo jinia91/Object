@@ -13,8 +13,7 @@ public class Tests {
     }
 
     @Test
-    public void test_Avatar_할인() {
-        assertThat("1").isEqualTo("1");
+    public void test_Avatar는_매일10번째_상영일경우_일정금액할인받는다() {
         Movie avatar = new Movie("아바타",
                 Duration.ofMinutes(120),
                 Money.wons(10000),
@@ -24,8 +23,26 @@ public class Tests {
                         new PeriodCondition(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(11, 59)),
                         new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))));
         Screening screening = new Screening(avatar, 10, LocalDateTime.now());
+
         Money money = screening.getMovieFee();
 
-        assertThat(money).isEqualTo(Money.wons(800));
+        assertThat(money).isEqualTo(Money.wons(9200));
+    }
+
+    @Test
+    public void test_Avatar는_매일10번째_상영이아닐경우_할인정책을받지못한다() {
+        Movie avatar = new Movie("아바타",
+                Duration.ofMinutes(120),
+                Money.wons(10000),
+                new AmountDiscountPolicy(Money.wons(800),
+                        new SequenceCondition(10),
+                        new SequenceCondition(1),
+                        new PeriodCondition(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(11, 59)),
+                        new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))));
+        Screening screening = new Screening(avatar, 9, LocalDateTime.now());
+
+        Money money = screening.getMovieFee();
+
+        assertThat(money).isNotEqualTo(Money.wons(9200));
     }
 }
