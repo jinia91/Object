@@ -1,11 +1,19 @@
 import org.assertj.core.internal.bytebuddy.asm.Advice;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Tests {
+
+public class MovieTests {
+    Customer customerDummy;
+
+    @BeforeEach
+    public void setUp() {
+        customerDummy = new Customer();
+    }
 
     @Test
     public void test_Money_equals_테스트() {
@@ -20,7 +28,7 @@ public class Tests {
                 null);
         Screening screening = new Screening(avatar, 10, LocalDateTime.now());
 
-        Reservation reservation = screening.reserve(new Customer(), 2);
+        Reservation reservation = screening.reserve(customerDummy, 2);
 
         assertThat(reservation.getFee()).isEqualTo(Money.wons(20000));
     }
@@ -37,7 +45,7 @@ public class Tests {
                         new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))));
         Screening screening = new Screening(avatar, 10, LocalDateTime.now());
 
-        Reservation reserve = screening.reserve(new Customer(), 1);
+        Reservation reserve = screening.reserve(customerDummy, 1);
 
         assertThat(reserve.getFee()).isEqualTo(Money.wons(9200));
     }
@@ -54,9 +62,9 @@ public class Tests {
                         new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))));
         Screening screening = new Screening(avatar, 9, LocalDateTime.now());
 
-        Money money = screening.getMovieFee();
+        Reservation reservation = screening.reserve(customerDummy, 1);
 
-        assertThat(money).isNotEqualTo(Money.wons(9200));
+        assertThat(reservation.getFee()).isNotEqualTo(Money.wons(9200));
     }
 
     @Test
@@ -70,8 +78,8 @@ public class Tests {
                         new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(13, 59))));
         Screening screening = new Screening(titanic, 2, LocalDateTime.now());
 
-        Money money = screening.getMovieFee();
+        Reservation reservation = screening.reserve(customerDummy, 1);
 
-        assertThat(money).isEqualTo(Money.wons(9900));
+        assertThat(reservation.getFee()).isEqualTo(Money.wons(9900));
     }
 }
