@@ -82,4 +82,17 @@ public class MovieTests {
 
         assertThat(reservation.getFee()).isEqualTo(Money.wons(9900));
     }
+
+    @Test
+    public void test_스타워즈는_할인이_없다() {
+        Movie starwars = new Movie("스타워즈",
+                Duration.ofMinutes(210),
+                Money.wons(10000),
+                new NoneDiscountPolicy());
+        Screening screening = new Screening(starwars, 1, LocalDateTime.now());
+
+        Reservation reservation = screening.reserve(customerDummy, 1);
+
+        assertThat(reservation.getFee()).isEqualTo(Money.wons(10000));
+    }
 }
