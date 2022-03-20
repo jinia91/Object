@@ -1,14 +1,12 @@
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
-import java.time.Duration;
-import java.time.LocalTime;
+import java.time.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Tests {
     @Test
-    public void main() {
+    public void test_Avatar_할인() {
         assertThat("1").isEqualTo("1");
         Movie avatar = new Movie("아바타",
                 Duration.ofMinutes(120),
@@ -18,5 +16,9 @@ public class Tests {
                         new SequenceCondition(1),
                         new PeriodCondition(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(11, 59)),
                         new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))));
+        Screening screening = new Screening(avatar, 8, LocalDateTime.now());
+        Money money = screening.getMovieFee();
+
+        assertThat(money).isEqualTo(Money.wons(800));
     }
 }
