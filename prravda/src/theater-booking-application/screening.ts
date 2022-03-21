@@ -22,13 +22,6 @@ export class Screening {
     );
   }
 
-  public screening(createScreeningDto: CreateScreeningDto) {
-    const { movie, sequence, whenScreened } = createScreeningDto;
-    this.movie = movie;
-    this.sequence = sequence;
-    this.whenScreened = whenScreened;
-  }
-
   public getStartTime() {
     return this.whenScreened;
   }
