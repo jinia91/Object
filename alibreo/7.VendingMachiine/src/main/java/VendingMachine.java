@@ -1,8 +1,16 @@
 public class VendingMachine {
-    public Item purchase(Money money, String itemName) {
-        if (itemName == "Water") {
+    private Money money = new Money(0);
+
+    public Item purchase(String itemName) {
+        if (itemName == "Water" && money.isBiggerOrEqual(new Money(500))) {
             return new Water();
+        } else if (itemName == "Cola" && money.isBiggerOrEqual(new Money(1000))) {
+            return new Cola();
         }
-        return new Cola();
+        return null;
+    }
+
+    public void receiveMoney(Money inputMoney) {
+        this.money.add(inputMoney);
     }
 }
