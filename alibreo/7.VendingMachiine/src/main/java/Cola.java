@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class Cola {
+public class Cola extends Item {
 }

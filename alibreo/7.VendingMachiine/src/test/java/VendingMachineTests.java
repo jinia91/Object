@@ -7,8 +7,19 @@ public class VendingMachineTests {
     public void test_VendingMachine은_1000원을_넣으면_콜라가나온다() {
         VendingMachine vendingMachine = new VendingMachine();
 
-        Cola cola = vendingMachine.purchase(money, "Cola");
+        Money money = new Money();
+        Item item = vendingMachine.purchase(money, "Cola");
 
-        assertThat(cola.instanceOf(Cola)).isEqualto(true);
+        assertThat(item instanceof Cola).isEqualTo(true);
+    }
+
+    @Test
+    public void test_VendingMachine은_500원으로_물을살수있다() {
+        VendingMachine vendingMachine = new VendingMachine();
+
+        Money money = new Money();
+        Item item = vendingMachine.purchase(money, "Water");
+
+        assertThat(item instanceof Water).isEqualTo(true);
     }
 }

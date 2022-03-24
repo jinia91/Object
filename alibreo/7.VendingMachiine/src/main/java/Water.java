@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class Water {
+public class Water extends Item {
 }
