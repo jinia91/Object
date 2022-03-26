@@ -47,4 +47,16 @@ public class VendingMachineTests {
         assertThat(item1 instanceof Water).isEqualTo(true);
         assertThat(item2 instanceof Water).isEqualTo(true);
     }
+
+    @Test
+    public void test_VendingMachine에_600원을넣고_물을사면_잔돈으로100원을얻는다() {
+        VendingMachine vendingMachine = new VendingMachine();
+
+        vendingMachine.receiveMoney(new Money(600));
+        Item item = vendingMachine.purchase("Water");
+        Money remainMoney = vendingMachine.getRemainMoney();
+
+        assertThat(item instanceof Water).isEqualTo(true);
+        assertThat(remainMoney).isEqualTo(new Money(100));
+    }
 }
