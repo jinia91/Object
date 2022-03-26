@@ -1,8 +1,10 @@
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.Value;
 
 @ToString
 @EqualsAndHashCode
+@Value
 public class Money {
     private int won;
 
@@ -10,12 +12,12 @@ public class Money {
         this.won = won;
     }
 
-    public void add(Money money) {
-        this.won += money.won;
+    public Money add(Money money) {
+        return new Money(won + money.won);
     }
 
-    public void minus(Money money) {
-        this.won -= money.won;
+    public Money minus(Money money) {
+        return new Money(won - money.won);
     }
 
     public boolean isBiggerOrEqual(Money money) {
