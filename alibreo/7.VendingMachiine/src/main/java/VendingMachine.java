@@ -1,6 +1,7 @@
 public class VendingMachine {
-    private Money money = new Money(0);
-    private Card card;
+    private Money remianMoney = new Money(0);
+    private Money ownersMoney = new Money(0);
+    private Payabler payabler;
 
     public Item purchase(String itemName) {
         Item item = Item.createItem(itemName);
@@ -8,25 +9,21 @@ public class VendingMachine {
             return null;
         }
         Money price = item.getPrice();
-        if (item.isAvailableWith(money)) {
-            money = money.minus(price);
-            return item;
-        } else if (card != null && item.isAvailableWith(card.withdrawMoney(price))) {
+        remianMoney = remianMoney.add(payabler.payMoney(price));
+        if (remianMoney.isBiggerOrEqual(price)) {
+            remianMoney.add(price);
+            remianMoney = remianMoney.minus(price);
             return item;
         }
         return null;
     }
 
-    public void receiveMoney(Money inputMoney) {
-        money = money.add(inputMoney);
-    }
-
     public Money getRemainMoney() {
-        return money;
+        return remianMoney;
     }
 
-    public void receiveCard(Card card) {
-        this.card = card;
+    public void startWith(Payabler payabler) {
+        this.payabler = payabler;
     }
 
     public Payment prepare(String item) {

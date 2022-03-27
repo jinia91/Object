@@ -7,7 +7,7 @@ public class VendingMachineTests {
     public void test_VendingMachine은_1000원을_넣으면_콜라가나온다() {
         VendingMachine vendingMachine = new VendingMachine();
         Money money = new Money(1000);
-        vendingMachine.receiveMoney(money);
+        vendingMachine.startWith(new Human(new Money(1000)));
 
         Item item = vendingMachine.purchase("Cola");
 
@@ -18,7 +18,7 @@ public class VendingMachineTests {
     public void test_VendingMachine은_500원으로_물을살수있다() {
         VendingMachine vendingMachine = new VendingMachine();
         Money money = new Money(500);
-        vendingMachine.receiveMoney(money);
+        vendingMachine.startWith(new Human(new Money(500)));
 
         Item item = vendingMachine.purchase("Water");
 
@@ -29,7 +29,7 @@ public class VendingMachineTests {
     public void test_VendingMachine에_400원을넣으면_물을구매할수없다() {
         VendingMachine vendingMachine = new VendingMachine();
         Money money = new Money(400);
-        vendingMachine.receiveMoney(money);
+        vendingMachine.startWith(new Human(new Money(400)));
 
         Item item = vendingMachine.purchase("Water");
 
@@ -40,7 +40,7 @@ public class VendingMachineTests {
     public void test_VendingMachine에_1000원을넣으면_물을두번뽑을수있다() {
         VendingMachine vendingMachine = new VendingMachine();
 
-        vendingMachine.receiveMoney(new Money(1000));
+        vendingMachine.startWith(new Human(new Money(1000)));
         Item item1 = vendingMachine.purchase("Water");
         Item item2 = vendingMachine.purchase("Water");
 
@@ -52,7 +52,7 @@ public class VendingMachineTests {
     public void test_VendingMachine에_600원을넣고_물을사면_잔돈으로100원을얻는다() {
         VendingMachine vendingMachine = new VendingMachine();
 
-        vendingMachine.receiveMoney(new Money(600));
+        vendingMachine.startWith(new Human(new Money(600)));
         Item item = vendingMachine.purchase("Water");
         Money remainMoney = vendingMachine.getRemainMoney();
 
@@ -64,7 +64,7 @@ public class VendingMachineTests {
     public void test_VendingMachine은_카드로도_음료수를_결제할_수_있다() {
         VendingMachine vendingMachine = new VendingMachine();
 
-        vendingMachine.receiveCard(new Card(new Money(500)));
+        vendingMachine.startWith(new Card(new Money(500)));
         Item item = vendingMachine.purchase("Water");
 
         assertThat(item instanceof Water).isEqualTo(true);
@@ -85,7 +85,7 @@ public class VendingMachineTests {
         VendingMachine vendingMachine1 = new VendingMachine();
 
         Card card1 = new Card(new Money(600));
-        vendingMachine1.receiveCard(card1);
+        vendingMachine1.startWith(card1);
         vendingMachine1.purchase("Water");
         Money money1 = card1.remainMoney();
 

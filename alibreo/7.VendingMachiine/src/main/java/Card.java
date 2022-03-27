@@ -1,11 +1,12 @@
-public class Card {
+public class Card implements Payabler {
     private Money remain;
 
     public Card(Money money) {
         remain = money;
     }
 
-    public Money withdrawMoney(Money money) {
+    @Override
+    public Money payMoney(Money money) {
         if (remain.minus(money) == null) {
             return null;
         }
@@ -13,6 +14,7 @@ public class Card {
         return money;
     }
 
+    @Override
     public Money remainMoney() {
         return remain;
     }
