@@ -66,10 +66,8 @@ public class VendingMachineTests {
 
         vendingMachine.receiveCard(new Card(new Money(500)));
         Item item = vendingMachine.purchase("Water");
-        Money remainMoney = vendingMachine.getRemainMoney();
 
         assertThat(item instanceof Water).isEqualTo(true);
-        assertThat(remainMoney).isEqualTo(new Money(0));
     }
 
     @Test
@@ -77,8 +75,7 @@ public class VendingMachineTests {
         VendingMachine vendingMachine = new VendingMachine();
 
         Payment payment = vendingMachine.prepare("Water");
-        payment.recieveMoney(new Card(new Money(500)));
-        Item item = vendingMachine.settle(payment);
+        Item item = payment.settle(new Card(new Money(500)));
 
         assertThat(item instanceof Water).isEqualTo(true);
     }
