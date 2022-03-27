@@ -17,4 +17,8 @@ public class VendingMachine {
     public Money getRemainMoney() {
         return money;
     }
+
+    public void receiveCard(Card card) {
+        money = card.getMoney();
+    }
 }
