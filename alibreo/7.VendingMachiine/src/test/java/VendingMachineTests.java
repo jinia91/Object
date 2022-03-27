@@ -79,4 +79,25 @@ public class VendingMachineTests {
 
         assertThat(item instanceof Water).isEqualTo(true);
     }
+
+    @Test
+    public void test_VendingMachine에_카드로결제시_결제금액만큼돈이빠진다() {
+        VendingMachine vendingMachine1 = new VendingMachine();
+
+        Card card1 = new Card(new Money(600));
+        vendingMachine1.receiveCard(card1);
+        vendingMachine1.purchase("Water");
+        Money money1 = card1.remainMoney();
+
+        assertThat(money1).isEqualTo(new Money(100));
+
+        VendingMachine vendingMachine2 = new VendingMachine();
+
+        Payment payment = vendingMachine2.prepare("Water");
+        Card card2 = new Card(new Money(600));
+        payment.settle(card2);
+        Money money2 = card2.remainMoney();
+
+        assertThat(money2).isEqualTo(new Money(100));
+    }
 }

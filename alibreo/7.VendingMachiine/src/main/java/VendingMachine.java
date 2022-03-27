@@ -1,10 +1,17 @@
 public class VendingMachine {
     private Money money = new Money(0);
+    private Card card;
 
     public Item purchase(String itemName) {
         Item item = Item.createItem(itemName);
-        if (item != null && item.isAvailableWith(money)) {
-            money = money.minus(item.getPrice());
+        if (item == null) {
+            return null;
+        }
+        Money price = item.getPrice();
+        if (item.isAvailableWith(money)) {
+            money = money.minus(price);
+            return item;
+        } else if (card != null && item.isAvailableWith(card.withdrawMoney(price))) {
             return item;
         }
         return null;
@@ -19,7 +26,7 @@ public class VendingMachine {
     }
 
     public void receiveCard(Card card) {
-        money = card.getMoney();
+        this.card = card;
     }
 
     public Payment prepare(String item) {

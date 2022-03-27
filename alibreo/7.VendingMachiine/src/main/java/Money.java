@@ -17,6 +17,9 @@ public class Money {
     }
 
     public Money minus(Money money) {
+        if (won - money.won < 0) {
+            return null;
+        }
         return new Money(won - money.won);
     }
 
