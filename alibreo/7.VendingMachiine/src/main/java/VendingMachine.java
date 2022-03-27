@@ -21,4 +21,12 @@ public class VendingMachine {
     public void receiveCard(Card card) {
         money = card.getMoney();
     }
+
+    public Item settle(Payment payment) {
+        return Item.createWater();
+    }
+
+    public Payment prepare(String water) {
+        return new Payment();
+    }
 }
