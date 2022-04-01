@@ -1,10 +1,6 @@
 import { Ticket } from "./ticket.entity";
 import { Audience } from "./audience.entity";
-
-export interface CreateTicketOfficeDto {
-  amount: number;
-  ticketList: Ticket[];
-}
+import { InsufficientTicketError } from "../errors/insufficient-ticket-error";
 
 export class TicketOffice {
   constructor(private amount: number, private ticketList: Ticket[]) {}
@@ -14,7 +10,11 @@ export class TicketOffice {
   }
 
   private getTicket() {
-    return this.ticketList.shift();
+    const issuedTicket = this.ticketList.shift();
+    if (issuedTicket !== undefined) {
+      return issuedTicket;
+    }
+    throw InsufficientTicketError;
   }
 
   private plusAmount(amount: number) {
