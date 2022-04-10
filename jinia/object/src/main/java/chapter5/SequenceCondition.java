@@ -1,4 +1,4 @@
-package chapter4;
+package chapter5;
 
 public class SequenceCondition implements DiscountCondition {
 
